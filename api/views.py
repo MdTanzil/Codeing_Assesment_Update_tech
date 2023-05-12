@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from .serializers import CustomUserSerializer, OrderSerializer
 from django.contrib.auth import authenticate, login
 from rest_framework import viewsets
+from rest_framework.permissions import IsAuthenticated
 from .models import Order
 from django.http import HttpResponse
 from django.views import View
@@ -54,6 +55,7 @@ class LoginView(APIView):
 class OrderViewSet(viewsets.ModelViewSet):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
+    permission_classes = [IsAuthenticated]  
 
 
 class GeneratePDFView(View):
